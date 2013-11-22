@@ -15,5 +15,10 @@ namespace KeyboardStatistics
         {
             InitializeComponent();
         }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            Console.WriteLine(e.KeyData);
+        }
     }
 }
