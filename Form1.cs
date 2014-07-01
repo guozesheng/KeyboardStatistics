@@ -75,6 +75,22 @@ namespace KeyboardStatistics
             }
         }
 
+        private void showForm()
+        {
+            this.Visible = true;
+            this.WindowState = FormWindowState.Normal;
+            this.ShowInTaskbar = true;
+            this.notifyIcon1.Visible = false;
+            this.Activate();
+        }
+
+        private void hideForm()
+        {
+            this.Visible = false;
+            this.ShowInTaskbar = false;
+            this.notifyIcon1.Visible = true;
+        }
+
         private void _btnRun_Click(object sender, EventArgs e)
         {
             drawImg();
@@ -88,6 +104,29 @@ namespace KeyboardStatistics
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             _boardHook.Hook_Clear();
+        }
+
+        private void _tsmiExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void notifyIcon1_DoubleClick(object sender, EventArgs e)
+        {
+            showForm();
+        }
+
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                hideForm();
+            }
+        }
+
+        private void _tsmiShow_Click(object sender, EventArgs e)
+        {
+            showForm();
         }
     }
 }
