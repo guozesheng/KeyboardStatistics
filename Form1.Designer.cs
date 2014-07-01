@@ -59,6 +59,8 @@
             // 
             // notifyIcon1
             // 
+            this.notifyIcon1.BalloonTipText = "我已经最小化在了这里！";
+            this.notifyIcon1.BalloonTipTitle = "哈哈";
             this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "记录中...";
@@ -76,14 +78,14 @@
             // _tsmiShow
             // 
             this._tsmiShow.Name = "_tsmiShow";
-            this._tsmiShow.Size = new System.Drawing.Size(152, 22);
+            this._tsmiShow.Size = new System.Drawing.Size(136, 22);
             this._tsmiShow.Text = "显示主窗口";
             this._tsmiShow.Click += new System.EventHandler(this._tsmiShow_Click);
             // 
             // _tsmiExit
             // 
             this._tsmiExit.Name = "_tsmiExit";
-            this._tsmiExit.Size = new System.Drawing.Size(152, 22);
+            this._tsmiExit.Size = new System.Drawing.Size(136, 22);
             this._tsmiExit.Text = "退出";
             this._tsmiExit.Click += new System.EventHandler(this._tsmiExit_Click);
             // 

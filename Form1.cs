@@ -13,6 +13,7 @@ namespace KeyboardStatistics
     {
         private KeyBoardHook _boardHook;
         private KeyRecord _keyRecord;
+        private bool _isFirst = true;
 
         public Form1()
         {
@@ -89,6 +90,12 @@ namespace KeyboardStatistics
             this.Visible = false;
             this.ShowInTaskbar = false;
             this.notifyIcon1.Visible = true;
+
+            if (_isFirst)
+            {
+                this.notifyIcon1.ShowBalloonTip(1000);
+                _isFirst = false;
+            }
         }
 
         private void _btnRun_Click(object sender, EventArgs e)
