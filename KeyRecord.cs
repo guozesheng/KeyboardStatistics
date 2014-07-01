@@ -27,6 +27,14 @@ namespace KeyboardStatistics
             return _keyRecord;
         }
 
+        public int[] Key
+        {
+            get
+            {
+                return _key;
+            }
+        }
+
         public void keyadd(int keycode)
         {
             if (keycode >= 65 && keycode <= 90)
