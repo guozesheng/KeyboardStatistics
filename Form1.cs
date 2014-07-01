@@ -11,19 +11,23 @@ namespace KeyboardStatistics
 {
     public partial class Form1 : Form
     {
+        private KeyBoardHook _boardHook;
+
         public Form1()
         {
             InitializeComponent();
+
+            _boardHook = new KeyBoardHook();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            KeyBoardHook.Hook_Start();
+            _boardHook.Hook_Start();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            KeyBoardHook.Hook_Clear();
+            _boardHook.Hook_Clear();
         }
     }
 }

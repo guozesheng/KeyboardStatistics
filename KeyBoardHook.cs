@@ -22,46 +22,45 @@ namespace KeyboardStatistics
 
         // 挂钩
         [DllImport("user32.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Auto)]
-        public static extern int SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hInstance, int threadId);
+        private static extern int SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hInstance, int threadId);
 
         // 取消挂钩
         [DllImport("user32.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Auto)]
-        public static extern bool UnhookWindowsHookEx(int idHook);
+        private static extern bool UnhookWindowsHookEx(int idHook);
 
         // 调用下一个钩子
         [DllImport("user32.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Auto)]
-        public static extern int CallNextHookEx(int idHook, int nCode, IntPtr wParam, IntPtr LParam);
+        private static extern int CallNextHookEx(int idHook, int nCode, IntPtr wParam, IntPtr LParam);
 
         // 委托
-        public delegate int HookProc(int nCode, IntPtr wParam, IntPtr LParam);
+        private delegate int HookProc(int nCode, IntPtr wParam, IntPtr LParam);
 
         private static int hHook = 0;
         private const int WH_KEYBOARD_LL = 13;
         private static HookProc KeyBoardHookProcedure;
 
+        private KeyRecord _keyRecord;
+
+        public KeyBoardHook()
+        {
+            _keyRecord = KeyRecord.Get();
+        }
+
         // 钩子处理函数
-        public static int KeyBoardHookProc(int nCode, IntPtr wParam, IntPtr LParam)
+        private int KeyBoardHookProc(int nCode, IntPtr wParam, IntPtr LParam)
         {
             if (nCode >= 0)
             {
                 KeyBoardStruct kbs = (KeyBoardStruct)Marshal.PtrToStructure(LParam, typeof(KeyBoardStruct));
 
-                switch (kbs.kCode)
-                {
-                    case 13:
-                        if (wParam.ToInt32() == 0x100)
-                        {
-                            Console.WriteLine("<CR>");
-                        }
-                        break;
-                }
+                _keyRecord.keyadd(kbs.kCode);
             }
 
             return CallNextHookEx(hHook, nCode, wParam, LParam);
         }
 
         // 取消钩子事件
-        public static bool Hook_Clear()
+        public bool Hook_Clear()
         {
             bool retKeyboard = true;
             if (hHook != 0)
@@ -73,7 +72,7 @@ namespace KeyboardStatistics
         }
 
         // 开始钩子
-        public static bool Hook_Start()
+        public bool Hook_Start()
         {
             bool retKeyboard = true;
             if (hHook == 0)
