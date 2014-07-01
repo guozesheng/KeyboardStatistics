@@ -93,6 +93,7 @@ namespace KeyboardStatistics
 
         private void _btnRun_Click(object sender, EventArgs e)
         {
+            panel1.Refresh();
             drawImg();
         }
 
