@@ -57,6 +57,12 @@ namespace KeyboardStatistics
             int maxhCF = _keyRecord.Key[maxIndex];
             int panHCF = panel1.Height - bottom - top;
 
+            // 没有记录任何按键
+            if (maxhCF <= 0)
+            {
+                return;
+            }
+
             for (int i = 0; i < _keyRecord.Key.Length; i++)
             {
                 x = left + w * i * 2;
@@ -69,19 +75,19 @@ namespace KeyboardStatistics
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void _btnRun_Click(object sender, EventArgs e)
+        {
+            drawImg();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
         {
             _boardHook.Hook_Start();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             _boardHook.Hook_Clear();
-        }
-
-        private void _btnRun_Click(object sender, EventArgs e)
-        {
-            drawImg();
         }
     }
 }
