@@ -22,6 +22,23 @@ namespace KeyboardStatistics
             _keyRecord = KeyRecord.Get();
         }
 
+        private int getKeyNum()
+        {
+            int max = 0;
+            int num = 0;
+
+            for (int i = 0; i < _keyRecord.Key.Length; i++)
+            {
+                if (max < _keyRecord.Key[i])
+                {
+                    max = _keyRecord.Key[i];
+                    num = i;
+                }
+            }
+
+            return num;
+        }
+
         private void drawImg()
         {
             int top = 10;
@@ -36,12 +53,15 @@ namespace KeyboardStatistics
             SolidBrush sBrush = new SolidBrush(Color.Black);
 
             Graphics g = panel1.CreateGraphics();
+            int maxIndex = getKeyNum();
+            int maxhCF = _keyRecord.Key[maxIndex];
+            int panHCF = panel1.Height - bottom - top;
 
             for (int i = 0; i < _keyRecord.Key.Length; i++)
             {
                 x = left + w * i * 2;
-                y = top;
-                h = panel1.Height - bottom - top;
+                h = _keyRecord.Key[i] * panHCF / maxhCF;
+                y = panel1.Height - bottom - h;
 
                 g.FillRectangle(new SolidBrush(c), x, y, w, h);
                 char key = (char)(i + 65);
